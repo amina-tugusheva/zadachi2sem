@@ -1,0 +1,113 @@
+#include "fstream"
+#include "string"
+#include "iostream"
+#include "iomanip"
+using namespace std;
+ifstream in("input.txt");
+ofstream out("output.txt");
+struct mas
+{
+	string fam, name, secondname, gr; // фамилия имя отчество год рождения 
+	int ses[5];                       // оценки по 5 предметам
+	void print();
+};
+void mas::print()
+{
+	out << setw(15) << left << fam << setw(12) << name << setw(15) << secondname << setw(20) << gr;
+	for (int i = 0; i < 5; i++)
+		out << setw(3) << ses[i];
+	out << endl;
+}
+//сортировка в алфавитном порядке методом выбора
+void sort(mas* a, int n)
+{
+	mas temp;
+	int lowindex;
+	string lowkey;
+	int i, j;
+	for (int i = 0; i < n - 1; i++)
+	{
+		lowindex = i;
+		lowkey = a[i].fam;
+		for (j = i + 1; j < n; j++)
+			if (a[j].fam < lowkey)
+			{
+				lowkey = a[j].fam;
+				lowindex = j;
+			}
+		temp = a[i];
+		a[i] = a[lowindex];
+		a[lowindex] = temp;
+	}
+}
+//сортировка методом пузырька
+void puzyrek(mas* a, int n)
+{
+	mas temp;
+	int i, j;
+	for (i = 0; i < n - 1; i++)
+		for (j = n - 1; j > i; j--)
+			if (a[j].fam > a[j - 1].fam) {
+				temp = a[j];
+				a[j] = a[j - 1];
+				a[j - 1] = temp;
+			}
+}
+//сортировка методом втсавки
+/*void vstavka(mas * a, int n)
+{
+	int temp;
+	int i, j;
+	for (i = 2; i <= n; i++)
+	{
+		j = i;
+		while (a[j] > a[j - 1])
+		{
+			temp = a[j];
+			a[j] = a[j - 1];
+			a[j - 1] = temp;
+			j--;
+		}
+	}
+}*/
+int main()
+{
+	int n = 0, m, i;
+	mas stud[20];
+	if (!in)
+	{
+		cout << "ошибка при открытии файла";
+	}
+	else
+	{
+		in >> m;
+		while (in.peek() != EOF)
+		{
+			in >> stud[n].fam;
+			in >> stud[n].name;
+			in >> stud[n].secondname;
+			for (i = 0; i < 5; i++)
+			{
+				in >> stud[n].ses[i];
+			}
+			in >> stud[n].gr;
+			n++;
+		}
+		//sort(stud, n);
+		puzyrek(stud, n);
+		//vstavka(stud, n);
+		out << m << endl;
+		for (i = 0; i < n; i++)
+			stud[i].print();
+
+	}
+	in.close();
+	out.close();
+	return 0;
+}
+/*111
+Иванов Иван Иванович 5 4 5 4 5 2004
+Иванцов Сергей Петрович 5 4 4 5 4 2005
+Иванова Нина Юрьевна 5 5 5 5 5 2004
+Смирнова Анна Дмитриевна 3 4 3 3 3 2004
+Сидоров Андрей Григорьевич 4 3 4 3 4 2005*/
