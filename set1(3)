@@ -1,0 +1,36 @@
+#include <iostream>
+#include <set>
+using namespace std;
+int main() 
+{
+	int n; cin >> n;
+	set<int> b;
+	for (int i = 0; i < n; i++) 
+	{
+		int num; 
+		cin >> num;
+		
+		if (num % 10 == 0)
+		{
+			while (num != 0)
+			{
+				b.emplace(num % 10);
+				num /= 10;
+			}
+		}
+		if (num % 10 != 0)
+		{
+			while (num != 0)
+			{
+				b.erase(num % 10);
+				num /= 10;
+			}
+		}
+	}
+	if (b.empty())
+		cout << "Empty";
+	else
+		for (int d : b)
+			cout << d << " ";
+	return 0;
+}
