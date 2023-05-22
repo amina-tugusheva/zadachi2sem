@@ -1,0 +1,29 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+using namespace std;
+ifstream in("input.txt");
+ofstream  out("output.txt");
+struct study {
+	string surname,fack;
+	int kurs, gruppa, o1,o2,o3,o4,o5 ;
+};
+int main() {
+	struct study s;
+	int n; 
+	cin >> n;
+	study* stud1 = new study[n];
+	for (int i = 0; i < n; i++) {
+		in >> stud1[i].surname;
+		in >> stud1[i].fack;
+		in >> stud1[i].kurs;
+		in >> stud1[i].gruppa >> stud1[i].o1 >> stud1[i].o2 >> stud1[i].o3 >> stud1[i].o4 >> stud1[i].o5;
+	};
+	
+	for (int i = 0; i < n; i++) {
+		if (stud1[i].o1 >= 4 && stud1[i].o2 >= 4 && stud1[i].o3 >= 4 && stud1[i].o4 >= 4 && stud1[i].o5 >= 4) {
+			out << ' ' <<  stud1[i].surname << ' ' << stud1[i].fack << ' ' << stud1[i].kurs << ' ' << stud1[i].gruppa << endl;
+		}
+	}
+	return 0;
+}
