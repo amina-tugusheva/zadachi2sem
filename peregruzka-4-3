@@ -1,0 +1,32 @@
+#include<iostream>
+using namespace std;
+float f(float x, float a)
+{
+	if (x < a)
+		return 0;
+	else if (x > a)
+		return (x - a) / (x + a);
+	else 
+		return 1;
+}
+void f(float x, float& y,float a)
+{
+	if (x < a)
+		y= 0;
+	else if (x > a)
+		y= (x - a) / (x + a);
+	else
+		y= 1;
+}
+int main()
+{
+	float a, b, h;
+	cin >> a >> b >> h;
+	float y;
+	for (float x = a; x <= b; x += h)
+	{
+		cout << f(x, a) << " ";
+		f(x, y, a);
+		cout << y << endl;
+	}
+}
