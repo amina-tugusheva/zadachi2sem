@@ -1,0 +1,56 @@
+//Использование функций-шаблонов:
+//для работы с двумерными массивами арифметических типов данных
+//разработать шаблоны ввода и вывода массива, также шаблон для решения основной задачи.
+//6. Подсчитать среднее арифметическое отрицательных элементов.
+#include <iostream>
+using namespace std;
+//ввод массива
+template <typename T> void arr(T** a, int n, int m)
+{
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+			cin >> a[i][j];
+		
+	}
+}
+//вывод массива
+template <typename T> void printarr(T** a, int n, int m)
+{
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+			cout << a[i][j] << ' ';
+		cout << endl;
+	}
+}
+//среднее арифметическое отрицательных чисел
+template <typename T> T srotr(T** a, int n, int m)
+{
+	T s = 0, k = 0;
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+		{
+			if (a[i][j] < 0)
+			{
+				s += a[i][j];
+				k += 1;
+			}
+		}
+	}
+	return s / k;
+}
+//обращение к функциям
+int main()
+{
+	int n, m;
+	cin >> n >> m;
+	float** mas = new float* [n];
+	for (int i = 0; i < m; i++)
+		mas[i] = new float[m];
+	arr(mas, n, m);
+	float srorifmotrch = srotr(mas, n, m);
+	printarr(mas, n, m);
+	cout << endl << srorifmotrch << endl;
+}
