@@ -1,0 +1,38 @@
+//создать файл состоящий из n целых чисел. вывести все числа данного файла, не попадающие в звдвнный интервал
+#include "fstream"
+#include"iomanip"
+#include <iostream>
+using namespace std;
+int main()
+{
+	ofstream out("f.dat", ios::binary);
+	double n, a, b, c;
+	cout << "n = ";
+	cin >> n;
+	cout << "a = ";
+	cin >> a;
+	cout << "b = ";
+	cin >> b;
+	for (int i = 0; i < n; i++)
+	{
+		//int c;
+		cin >> c;
+		out.write((char*)&c, sizeof(c));
+
+	}
+	out.close();
+	ifstream in("f.dat", ios::binary);
+	//in.seekg(sizeof(double));
+	while (in.peek() != EOF) {
+		in.read((char*)&c, sizeof(double));
+		//cout << c << ' ';
+		if (c <= a || c >= b)
+		{
+			cout << c << " ";
+		}
+
+		//in.seekg(sizeof(double), ios::cur);
+	}
+	in.close();
+	return 0;
+}
